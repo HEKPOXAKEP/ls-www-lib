@@ -1,0 +1,22 @@
+/*
+  Стили окна сообщения об ошибке
+*/
+@charset 'utf-8';
+
+.dialogErr {
+  background-color: #ffcfcf;
+  border-color: red;
+}
+
+.dlgErrHeader {
+  background-color: red;
+  border-bottom-color: white;
+}
+
+.dlgErrBody {
+  color: navy;
+}
+
+.dlgErrButtons {
+  border-top-color: white;
+}

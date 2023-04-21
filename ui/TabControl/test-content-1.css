@@ -1,0 +1,33 @@
+/*
+  Стили вкладки test-content-1
+*/
+@charset "utf-8";
+
+textarea,input[type="text"] {
+  border:0.8px solid black;
+  border-radius: 5px;
+}
+
+.block {
+  display: block;
+}
+
+#new-tab-params input[type="text"] {
+  margin-left: 10px;
+}
+
+/*.bad-data {
+  border: 1px solid red;
+}*/
+
+#btnAddTabSheet {
+  margin-top: 13px;
+  padding: 4px 7px;
+}
+
+#lblSheetName {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  vertical-align: middle;
+}

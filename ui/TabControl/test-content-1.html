@@ -1,0 +1,23 @@
+<div id='new-tab-params'>
+<fieldset>
+  <legend>Параметры новой вкладки</legend>
+    <label class='block'>sheetName<input type='text' id='editSheetName' size='68'></label>
+    <label class='block'><input type='checkbox' id='cbActivate'>переключиться на созданную вкладку params{activate:true}</label>
+  <fieldset>
+    <legend>
+    <input type='radio' id='rbContentHtml' name='content-type' value='html'>
+    <label for='rbContentHtml'>htmlText</label>
+    </legend>
+    <textarea id='textHtml' rows='7' cols='65' placeholder='html content'></textarea>
+  </fieldset>
+  <fieldset>
+    <legend>
+    <input type='radio' id='rbContentFile' name='content-type' value='file'>
+    <label for='rbContentFile'>mod</label>
+    </legend>
+    <label class='block'>mod.htmlUrl<input type='text' id='editModHtmlUrl' size='80'></label>
+    <label class='block'>mod.objUrl<input type='text' id='editModObjUrl' size='80'></label>
+  </fieldset>
+</fieldset>
+  <button id='btnAddTabSheet'>Добавить вкладку</button>
+</div>

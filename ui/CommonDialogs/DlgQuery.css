@@ -1,0 +1,22 @@
+/*
+  Стили окна сообщения об ошибке
+*/
+@charset 'utf-8';
+
+.dialogQry {
+  background-color: #c7f5de;  /* c7def5 */
+  border-color: green;
+}
+
+.dlgQryHeader {
+  background-color: green;
+  border-bottom-color: black;
+}
+
+.dlgQryBody {
+  color: black;
+}
+
+.dlgQryButtons {
+  border-top-color: green;
+}

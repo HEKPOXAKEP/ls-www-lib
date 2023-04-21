@@ -1,0 +1,22 @@
+/*
+  Стили окна сообщения об ошибке
+*/
+@charset 'utf-8';
+
+.dialogInfo {
+  background-color: #c7def5;
+  border-color: navy;
+}
+
+.dlgInfoHeader {
+  background-color: navy;
+  border-bottom-color: black;
+}
+
+.dlgInfoBody {
+  color: navy;
+}
+
+.dlgInfoButtons {
+  border-top-color: navy;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='ru-ru'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!--v-- отключение кэширования --v-->
+  <meta http-equiv='Cache-Control' content='no-cache, no-store, max-age=0, must-revalidate' />
+  <meta http-equiv='Pragma' content='no-cache' />
+  <meta http-equiv='Expires' content='Fri, 01 Jan 1990 00:00:00 GMT' />
+  <!--^-- отключение кэширования --^-->
+  <title>Вкладки - тест и отладка</title>
+
+  <script src='../../../jq/jquery-3.6.3.min.js'></script>
+
+  <!--script src='http://lagodrom/ls-www-lib/ls-www-common.js'></script-->
+  <link href='tabControl-test.css' rel='stylesheet' />
+  <script src='../../css-control.js'></script>
+  <script src='tabControl.js'></script>
+
+  <script>
+    ccCss.loadCss('tabControlCss','http://lagodrom/ls-www-lib/ui/tabControl/tabControl.css');
+    $(document).ready(function() {
+      var
+        tabCtrl=ccTabCtrls.createTabCtrl('container','mainTabs');
+
+      tabCtrl.createTabSheet('Вкладка 1','sheet-number-one',{
+        htmlText:'Контент вкладки 1',
+        beforeDestroy:_beforeSheetDestroy});
+      tabCtrl.createTabSheet('Вкладка 2 с длинным названием','sheet-number-two',{
+        htmlText:'Контент вкладки 2<br><br>Тут должно быть<br>много всякого.<br>И потом даже <button>Кнопка</button>',
+        beforeDestroy:_beforeSheetDestroy});
+      tabCtrl.createTabSheet('Вкладка 3','sheet-number-three',{
+        htmlText:'Контент вкладки 3',
+        beforeDestroy:_beforeSheetDestroy});
+      tabCtrl.createTabSheet('Вкладка 4','new-tab-params',{
+        mod:{htmlUrl:'test-content-1.html',objUrl:'test-content-1.js'},
+        css:{id:'test-content-css-1',href:'test-content-1.css?'},
+        beforeDestroy:_beforeSheetDestroy,
+        activate:true});
+
+      //tabCtrl.doChangeTabSheet({sheetName:'sheet-number-two'});
+      //tabCtrl.checkTabSheets();
+    });
+
+    function _beforeSheetDestroy(ccTabCtrl,ccTabSheet) {
+      /*if (ccTabSheet.sheetName =='new-tab-params') {
+        alert(`А вот фиг, вкладку ${ccTabSheet.sheetName} закрыть нельзя.\r:-P`);
+        return false;
+      }*/
+      /*console.log(`Ты пытаешься закрыть вкладку ${ccTabCtrl.tabCtrlId}->${ccTabSheet.sheetName}?\nА вот хер тебе!\n:-P`);
+      return false;*/
+      return true;
+    }
+
+    function _tabSheetBySheetName(sheetName) {
+      return ccTabCtrls.tabCtrls[0].tabSheetBySheetName(sheetName);
+    }
+  </script>
+</head>
+<body>
+  <div class='h14-bold'>Тестируем и отлаживаем модуль вкладок</div>
+  <div class='text-block'>Итак, есть два метода создания вкладки: by Html и by Mod.</div>
+  <div id='container'></div>
+</body>
+</html>

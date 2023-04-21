@@ -1,0 +1,22 @@
+@charset "utf-8";
+/*
+  -----------------------------------------------
+  Основыне стили документа tabControl-test.html
+  -----------------------------------------------
+*/
+body {
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.h14-bold {
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #e9e9ed;
+  margin: 5px 0;
+  padding: 2px 7px;
+}
+
+.text-block {
+  margin: 5px;
+}

@@ -1,0 +1,22 @@
+@charset 'utf-8';
+/*
+  =============================
+  Стили окна отладки диалогов
+  =============================
+*/
+
+#common-dialogs-params fieldset label {
+  display: block;
+  margin: 5px 0;
+}
+
+#common-dialogs-paramstextarea {
+  resize: none;
+}
+
+#common-dialogs-params .bevel {
+  border-top: 1px solid white;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid white;
+}

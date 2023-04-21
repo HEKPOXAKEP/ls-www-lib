@@ -1,0 +1,79 @@
+@charset 'utf-8';
+/*
+  Глобальные стили всех диалоговых окон
+*/
+
+/* Стили контейнера диалога
+*/
+.dlgLayer {
+  position: fixed;
+  /*z-index: 1970;*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  /*opacity: 0.4;*/
+  background: rgba(0,0,0, 0.3);
+  display: none;     /* изначально контейнер спрятана */
+}
+
+.dlgLayer.open {
+  display: block;    /* делаем койнтейнер видимым */
+}
+
+/* Стили абстрактного диалогового окна.
+   Этот класс должнен иметь самый внешний <div> любого диалога
+*/
+.dialog {
+  position: absolute;
+  /*z-index: 1971;*/
+  width: 400px;     /* ширина 400px, */
+  max-width: 100%;  /* но не более ширины окна */
+  margin: 0;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%,-30%);
+  /*opacity: 1;*/
+  border: 2px solid black;
+  border-radius: 4px;
+  box-shadow: 3px 4px 5px 1px black; /*rgba(0,0,0, 0.50);*/
+}
+
+/* Стили компонентов диалога
+*/
+.dlgHeader {
+  color: white;
+  background: black;
+  text-align: center;
+  padding: 5px 13px 5px 13px;
+  font-weight: bold;
+  font-size: 14px;
+  border-bottom: 1px solid black;
+}
+
+.dlgBody {
+  padding: 5px 13px 5px 13px;
+}
+
+.dlgButtons {
+  padding: 5px 7px 6px 0;
+  text-align: right;  /* кнопки будут располагаться в правой части панели */
+  border-top: 1px solid black;
+}
+
+.dlgBtn {
+  width: 80px;
+  margin: 0 2px 0 2px;
+  height: 1.7em;
+  /*border-top: 1px solid black;
+  border-radius: 2px;*/
+  box-shadow: 3px 3px 2px -1px rgba(112,112,112,0.5);
+}
+
+.dlgBtn.btnDefault {
+  font-weight: bold;
+  /*text-decoration: underline;*/
+}

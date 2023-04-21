@@ -1,0 +1,83 @@
+@charset "utf-8";
+/*
+  =========================
+  Стили для всех тулбаров
+  =========================
+*/
+.toolbar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  /* --- */
+  font-size: 0;
+  margin-top: 0px;
+  margin-bottom: 7px;
+  padding: 3px 7px;
+  box-shadow: 0 3px 4px 0px;
+}
+
+/*
+  Для любого элемента тулбара, кроме разделителя.
+*/
+.toolbar-item {
+  display: flex;
+  align-self: center;
+  font-size: 18px;
+  background-color: #dddde4;
+  padding: 2px;
+  border: 2px outset;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px;
+}
+
+/*
+  Элемент, который и все за ним будут выровнены по правой стороне тулбара.
+*/
+.toolbar-item-right {
+  margin-left: auto;
+}
+
+/*
+  Элемент - метка
+*/
+.toolbar-label {
+  align-self: stretch;
+  font-weight: bold;
+  text-align: center;
+  padding: 0px 7px;
+}
+
+.toolbar-label>* {
+  align-self: center;
+}
+
+.toolbar-item:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+/*
+  Кнопка
+*/
+.toolbar-btn {
+  /*align-self: stretch;*/
+  /*flex-grow: 0;*/
+  /*flex-basis: 36px;*/
+  /*background: url(../img/tool-btn-bkg-64.jpg);*/
+}
+
+.toolbar-btn>img {
+  align-self: center;
+  width: 24px;
+  height: 24px;
+}
+
+/*
+  --- Разделитель ---
+*/
+.toolbar-separator {
+  display: inline-block;
+  width: 1px;
+  margin: 2px 7px 0 7px;
+  border: 2px dashed black;
+}

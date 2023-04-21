@@ -1,0 +1,42 @@
+<!--
+  Форма параметров для отладки модальных диалоговых окон
+-->
+<div id='common-dialogs-params'>
+<div style='margin-top:14px; margin-bottom:7px;'>
+  <label>Тип диалога:
+    <select id='selectDlgType'>
+      <option>error</option>
+      <option>info</option>
+      <option>query</option>
+      <option>custom</option>
+    </select>
+  </label>
+</div>
+<fieldset>
+  <legend><input id='cbUseParams' type='checkbox' />Использовать параметры</legend>
+  <div>
+    <textarea id='textMsg' style='display:inline-block; vertical-align:top; height:109px;' placeholder='Body диалога' cols=48 rows=5></textarea>
+    <div style='display:inline-block; width:1px; height:115px;' class='bevel'></div>
+    <div style='display:inline-block; vertical-align:top;'>
+      <div style='display:block'>
+        <input type='checkbox' id='cbBeforeShow' style='display:inline-block; vertical-align:top; margin-left:0;' />
+        <textarea id='textBeforeShow' style='display:inline-block' placeholder='beforeShow(dialog)' cols=46 rows=2></textarea>
+      </div>
+      <div style='display:block'>
+        <input type='checkbox' id='cbBeforeDestroy' style='display:inline-block; vertical-align:top; margin-left:0;' />
+        <textarea id='textBeforeDestroy' style='display:inline-block' placeholder='beforeDestroy(dialog)' cols=46 rows=2></textarea>
+      </div>
+    </div>
+  </div>
+  <label><input id='cbTitle' type='checkbox' />title<input id='inputTitle' type='text' style='margin-left:10px;' /></label>
+</fieldset>
+<button id='btnShowDlg' style='margin-top:7px;'>Показать диалог</button>
+</div>
+
+<script>
+  ccCss.loadCss('dbgDialogsCss','dialogs.css');
+
+  $('#common-dialogs-params #btnShowDlg').click(function() {
+    _showDlg_();
+  });
+</script>
