@@ -4,8 +4,25 @@
   ===========================
 */
 
+const
+  LS_WWW_COMMON=true;
+
+/*
+  Аналог php.isset()
+*/
+function isset(v) {
+  return typeof v !=='undefined';
+}
+
+/*
+  Выдаёт имя типа
+*/
+const
+  type=(x) => x == null ? `${x}` : x.constructor.name;
+
 /*
   Добавляем в jQuery функцию проверки существования элемента.
+
   Usage: if ($('selector').exists()) ...
 */
 if (window.jQuery) {
@@ -13,6 +30,13 @@ if (window.jQuery) {
   ||
   function() {
     return (this.length >0);
+  }
+} else {
+  /*
+    Проверка наличия в DOM элемента по указанному селектору.
+  */
+  window.exists=(selector) => {
+    return !!document.querySelector(selector);
   }
 }
 
@@ -84,7 +108,7 @@ function trailingSlash(str)
 function emitError(errstr,_log=true,_alert=true)
 {
   if (_log)
-    console.log(errstr);
+    console.error(errstr);
   if (_alert)
     alert(errstr);
 }
@@ -104,19 +128,20 @@ function errorLoadMod(mod,xhr)
 function dateStr2longDateStr(ds)
 {
   var
-  opts={
-    weekday:'short',
-    day:'numeric',
-    month:'long',
-    year:'numeric'
-  };
+    d,
+    opts={
+      weekday:'short',
+      day:'numeric',
+      month:'long',
+      year:'numeric'
+    };
 
   switch (ds.length) {
     case 8:   // yyyymmdd
-      var d=new Date(ds.slice(0,4)+'-'+ds.slice(4,6)+'-'+ds.slice(6,8));
+      d=new Date(ds.slice(0,4)+'-'+ds.slice(4,6)+'-'+ds.slice(6,8));
       break;
     case 10:  // yyyy-mm-dd
-      var d=new Date(ds)
+      d=new Date(ds)
       break;
     default:
       emitError('Дата указана неверно: "'+ds+'".');
@@ -168,7 +193,7 @@ function delCookie(name) {
     cd=new Date();  // Текущая дата и время
 
   cd.setTime(cd.getTime()-1);
-  document.cookie=encodeURIComponent(name)+='=; SameSite=Lax; expires='+cd.toUTCString();
+  document.cookie=encodeURIComponent(name)+'=; SameSite=Lax; expires='+cd.toUTCString();
 }
 
 /*

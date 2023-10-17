@@ -28,7 +28,7 @@
 */
 function CCTabCtrls()
 {
-  this.tabCtrls=new Array();
+  this.tabCtrls=[];
 
 }
 var
@@ -190,7 +190,7 @@ CCTabCtrl.prototype.createTabSheet=function(tabSheetTitle,sheetName,params)
 
   if ('css' in params)
     // грузим стили вкладки
-    ccCss.loadCss(params.css.id,params.css.href);
+    cssCtrl.loadCss(params.css.id,params.css.href);
 
   // инициализируем контент вкладки
   if ('mod' in params) {
