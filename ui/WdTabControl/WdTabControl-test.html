@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='ru-ru'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>Вкладки - тест и отладка</title>
+
+  <script src='../../../jq/jquery-3.6.3.min.js'></script>
+
+  <!--script src='http://lagodrom/ls-www-lib/ls-www-common.js'></script-->
+  <link href='WdTabControl-test.css' rel='stylesheet' />
+  <script src='../../css-control.js'></script>
+  <script src='WdTabControl.js'></script>
+
+  <script>
+    ///cssCtrl.loadCss('tabControlCss','http://lagodrom/ls-www-lib/ui/tabControl/tabControl.css');
+    cssCtrl.loadCss('tabControlCss','WdTabControl.css');
+    $(document).ready(function() {
+      var
+        tabCtrl=wdTabCtrls.createTabCtrl('wdtabs-container','mainTabs');
+
+      tabCtrl.createTabSheet('Вкладка 1','sheet-number-one',{
+        htmlText:'Контент вкладки 1',
+        beforeDestroy:_beforeSheetDestroy});
+      tabCtrl.createTabSheet('Вкладка 2 с длинным названием','sheet-number-two',{
+        htmlText:'Контент вкладки 2<br><br>Тут должно быть<br>много всякого.<br>И потом даже <button>Кнопка</button>',
+        beforeDestroy:_beforeSheetDestroy});
+      tabCtrl.createTabSheet('Вкладка 3','sheet-number-three',{
+        htmlText:'Контент вкладки 3',
+        beforeDestroy:_beforeSheetDestroy});
+    });
+
+    function _beforeSheetDestroy(wdTabCtrl,wdTabSheet) {
+      if (wdTabSheet.sheetName =='new-tab-params') {
+        alert(`А вот фиг, вкладку ${wdTabSheet.sheetName} закрыть нельзя.\r:-P`);
+        return false;
+      }
+      console.log(`Ты пытаешься закрыть вкладку ${wdTabCtrl.tabCtrlId}->${wdTabSheet.sheetName}?\nА вот хер тебе!\n:-P`);
+      return false;
+      //return true;
+    }
+
+  </script>
+</head>
+<body>
+  <div class='h14-bold'>Тестируем и отлаживаем модуль вкладок</div>
+  <div class='text-block'>Итак, есть два метода создания вкладки: by Html и by Mod.<br>Давайте протестируем их оба два.</div>
+  <div id='wdtabs-container'></div>
+</body>
+</html>
