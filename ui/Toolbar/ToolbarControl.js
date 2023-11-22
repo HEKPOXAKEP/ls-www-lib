@@ -5,8 +5,13 @@
 
   Каждый загружаемый скрипт тулбара должен иметь функцию initToolbar(id,containerId),
   которая создаст и вернёт экземпляр класс этого тулбара.
+
+  Перед использванием создать объект класса ToolbarCtrl:
+  var
+    toolbarCtrl=new ToolbarCtrl();
 */
 class ToolbarCtrl extends Map {
+
   constructor() {
     super();
     this.currToolbarId=undefined;
@@ -17,72 +22,56 @@ class ToolbarCtrl extends Map {
   }
 
   registerToolbar() {
-    
+    ///
   }
 
   /*
     Загрузка и инициализация html и объекта js тулбара.
-    Параметры:
-      id           - инетификатор тулбара для сохранения в коллекции
-      name         - имя файлов html и js тулбара без расширения;
-                     файлы html и js должны располагаться в подкаталогах /html и /js соответственно
-      containerId  - контейнер тулбара, в который будут добавляться кнопки
+    containerId  - контейнер тулбара, в который будут добавляться кнопки
   */
-  loadToolbar(id,fName,containerId) {
+  loadToolbar(id,fHtml,fJs,containerId) {
     if (this.currToolbarId !==undefined) {
       this.get(this.currToolbarId).unbindEvents();
     }
     $('#'+containerId).empty();
 
-    this.loadHtml(id,fName,containerId);     // -> loadJS -> initToolbar, bindEvents
-  }
+    new Promise((resolve,reject) => {
+      var rez=this.loadToolbarModule(id,fHtml,fJs,containerId);
 
-  /*
-    Загрузка файла html тулбара.
-  */
-  loadHtml(id,fName,containerId) {
-    var
-      self=this,
-      $toolbar=$('#'+containerId),
-      htmlName='./html/'+fName+'.html';
-
-    $toolbar.load(htmlName,function(response,status,xhr) {
-      if (status ==='error') {
-        errorLoadMod(htmlName,xhr);
+      if (rez.error) {
+        reject(rez.message);
       } else {
-        self.loadJS(id,fName,containerId);
+        resolve(rez);
       }
+    })
+    .then((response) => {
+      ///_log(response.message);  // dbg
+      if (!this.has(id)) {
+        this.currToolbarId=id;
+        this.set(id,initToolbar(containerId));   // создаём объект
+        ///this.set(id,new window[className](containerId));  // создаём объект
+        this.bindEvents(id);                        // привязываем события
+      } else {
+        // скрипт был загружен и инициализирован ранее,
+        // только привязываем события.
+        this.currToolbarId=id;
+        this.bindEvents(id);
+      }
+    })
+    .catch((err) => {
+      ///console.error(`Метод App.loadClockModule() завершился с ошибкой:\n${err.message}`);  //dbg
+      console.error('Method ToolbarCtrl.loadToolbarModule() rejected with error:\n',err);
     });
   }
 
-  /*
-    Загрузка класса для обработки тулбара.
-
-    В модуле должны быть две функции: initToolbar(), которая вернёт созданный объект тулбара,
-    и bindEvents(), которая привяжет обработчики событий к элементам тулбара.
-  */
-  loadJS(id,fName,containerId) {
-    var
-      self=this,
-      jsName='./js/'+fName+'.js';
-
-    if (!this.has(id)) {
-      // скрипт с таким Id не загружался - грузим
-      $.getScript(jsName,function() {
-        // загрузили, инициализируем
-        self.currToolbarId=id;
-        self.set(id,initToolbar(id,containerId));  // создаём объект
-        //self.set(id,new className(containerId));  // создаём объект
-        self.bindEvents(id);                      // привязываем события
-      }).fail(function(xhr,textStatus,errorThrown) {
-        errorLoadMod(jsName,xhr);
-      });
-    } else {
-      // скрипт был загружен и инициализирован ранее,
-      // только привязываем события.
-      this.currToolbarId=id;
-      this.bindEvents(id);
-    }
+  loadToolbarModule(id,fHtml,fJs,containerId) {
+    return modCtrl.loadMod(
+      id,
+      {
+        oHtml: {url: fHtml, parentId: containerId},
+        oJs: {src: fJs}
+      }
+    );
   }
 
   /*
@@ -113,6 +102,3 @@ class ToolbarCtrl extends Map {
     super.clear();
   }
 }
-
-var
-  toolbarCtrl=new ToolbarCtrl();
