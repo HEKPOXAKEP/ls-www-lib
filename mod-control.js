@@ -5,6 +5,10 @@
 
   Динамическая загрузка компонентов модулей: {css, html, js}.
   Основной метод ModCtrl.loadMod() возвращает Promise.
+
+  Перед началом использования создать объект класса ModCtrl:
+  var
+    modCtrl=new ModCtrl();
 */
 
 /*
@@ -40,6 +44,7 @@ const
 
         cn.appendChild(el);
       } catch (err) {
+        console.info(err);  // dbg
         reject(err);
       }
     });
