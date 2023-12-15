@@ -1,0 +1,19 @@
+.jquidlg.ui-dialog-content {
+  display: none;
+  margin: .5em .5em 0;
+  font-size: 14px;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.dlgtype-error.ui-dialog-content {
+  background-color: #ffcfcf;
+}
+
+.dlgtype-warn.ui-dialog-content {
+  background-color: lightyellow;
+}
+
+.dlgtype-info.ui-dialog-content {
+  background-color: aliceblue;
+}

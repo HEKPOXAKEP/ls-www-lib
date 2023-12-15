@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>JqUIDialogs test</title>
+  <!-- jQuery -->
+  <script src='../../../jq/jquery-3.6.3.min.js'></script>
+  <link href='../../../jq/ui/jquery-ui.css' rel='stylesheet'>
+  <script src='../../../jq/ui/jquery-ui.min.js'></script>
+  <!-- modules of Ls-www-Lib -->
+  <script src='../../mod-control.js'></script>
+  <script src='JqUIDlgCtrl.js'></script>
+  <link href='JqUIDialogs.css' rel='stylesheet'>
+  <!-- This page stuff -->
+  <script src='JqUIDialogs-test.js'></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font: 12px Helvetica, Arial, sans-serif;
+      /*width: 100%;*/
+    }
+    legend {
+      padding: 2px;
+    }
+    .divide {
+      padding: 3px 8px 2px;
+      margin-bottom: 8px;
+      color: white;
+      background-color: navy;
+      font-size: 16px;
+      font-weight: bold;
+      width: 50%;
+    }
+    hr {
+      margin-left: 0;
+      height: 10px;
+      border: none;
+      border-top: 1px solid #333;
+      box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    }
+    hr.w50pc {
+      width: 50%;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded',(ev) => {
+      startUp();
+    });
+  </script>
+</head>
+<body>
+  <div class='divide'>One simple dialog</div>
+  <label>Dialog title:</label><br><input id='ed-msgdlg-title' type='text' size='50'>
+  <br>
+  <div style='margin: 7px 0'><label>Dialog type: </label>
+  <select id='sel-msgdlg-type'>
+    <option value='info'>Information</option>
+    <option value='warn'>Warning</option>
+    <option value='error'>Error</option>
+  </select></div>
+  <label>Message text:</label><br>
+  <textarea id='ed-msgdlg-body' cols='60' rows='5'></textarea><br>
+  <button id='show-msgdlg'>Show dialog</button>
+  <hr class='w50pc'>
+  <div class='divide'>All three dialogs at once</div>
+  <button id='show-3-dlgs'>Show 3 dialogs</button>
+  <hr class='w50pc'>
+  <div class='divide'>Complex custom dialog</div>
+  <button id='show-custom-dlg'>Show custom dialog</button>
+  <hr class='w50pc'>
+  <div id='dlg-container'></div>
+</body>
+</html>
