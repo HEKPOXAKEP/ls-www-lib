@@ -115,11 +115,13 @@ class ModCtrl
   /*
     Загрузка указанных компонентов модуля.
 
-    Вернёт Promise с полями loaded, error и message.
+    Вернёт Promise с полями loaded:boolean, error:boolean и message:string.
+
+    id - Id для css и script;
 
     options {
       oCss: {href: ?},
-      oHtml: {url: ?, parent: ?},
+      oHtml: {url: ?, parentId: ?},
       oJs: {src: ?},
     }
   */
@@ -153,15 +155,13 @@ class ModCtrl
       });
     })
     .catch((err) => {
-      console.error('Ахтунг! Один из промисов вызвал ошибку: ',err.message);
+      console.error('Error! Один из промисов вызвал ошибку: ',err.message);
       return Promise.reject(err);
     });
   }
 
   /*
     Добавляет элемент <link> в конец секции <head>
-    или заменяет его атрибут href, если <link> с таким id
-    уже есть.
   */
   #loadCss(id,oCss) {
     if (document.getElementById(id)) {
@@ -183,8 +183,6 @@ class ModCtrl
 
   /*
     Добавляет элемент <script> в конец секции <head>
-    или меняет его атрибут src, если <script> с таким id
-    уже есть.
   */
   #loadJs(id,oJs) {
     if (document.getElementById(id)) {
