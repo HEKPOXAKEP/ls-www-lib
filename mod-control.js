@@ -11,6 +11,10 @@
     modCtrl=new ModCtrl();
 */
 
+const
+  DYNAMIC_JS='dynamic-js',
+  DYNAMIC_CSS='dynamic-css';
+
 /*
   Обёртка для загрузки скриптов.
 */
@@ -23,7 +27,7 @@ const
           cn=document.head || document.body;
 
         el.async=true;
-        el.class='dynamic-js';
+        el.class=DYNAMIC_JS;
         el.id=id;
         el.src=src;
 
@@ -63,7 +67,7 @@ const
 
         el.id=id;
         el.rel='stylesheet';
-        el.class='dynamic-css';
+        el.class=DYNAMIC_CSS;
         el.href=href;
 
         el.addEventListener('load',() => {
@@ -253,5 +257,41 @@ class ModCtrl
           message: msg,
         });
       });
+  }
+
+  /*
+    Удаляет из DOM элементы css, script, html по их Id.
+
+    ids {
+      cssId: ?,
+      jsId: ?,
+      htmlId: ?
+    }
+  */
+  removeMod(ids) {
+    this.removeCss(ids.cssId);
+    this.removeJs(ids.jsId);
+    this.removeHtml(ids.htmlId);
+  }
+
+  removeJs(id) {
+    if (!id) return;
+    const
+      el=document.querySelector('#'+this.#prepId(id)+'.'+DYNAMIC_JS);
+    if (el) el.remove();
+  }
+
+  removeCss(id) {
+    if (!id) return;
+    const
+      el=document.querySelector('#'+this.#prepId(id)+'.'+DYNAMIC_CSS);
+    if (el) el.remove();
+  }
+
+  removeHtml(id) {
+    if (!id) return;
+    const
+      el=document.getElementById(this.#prepId(id));
+    if (el) el.remove();
   }
 }
