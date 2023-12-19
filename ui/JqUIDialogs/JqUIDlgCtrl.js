@@ -190,7 +190,7 @@ class JqUIDlgCtrl
       return {loaded: true, error: false, message: 'Ok'};
     })
     .catch((err) => {
-      console.error('Error loading dialog mod:',err);
+      console.error('Error loading dialog mod:',err.message);
       this.stack.delete(this.dlgIdCntr);
       dlg.remove();
       return err;

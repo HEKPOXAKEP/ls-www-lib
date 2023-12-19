@@ -48,7 +48,7 @@ const
 
         cn.appendChild(el);
       } catch (err) {
-        console.info(err);  // dbg
+        console.error(err.message);  // dbg
         reject(err);
       }
     });
