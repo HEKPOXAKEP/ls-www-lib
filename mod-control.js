@@ -125,7 +125,7 @@ class ModCtrl
 
     options {
       oCss: {href: ?},
-      oHtml: {url: ?, parentId: ?},
+      oHtml: {url: ? || html: ?, parentId: ?}, - url || html
       oJs: {src: ?},
     }
   */
@@ -235,6 +235,14 @@ class ModCtrl
       });
     }
 
+    // в качестве компонента html указан текст
+    if (oHtml.html) {
+      prnt.innerHTML=oHtml.html;
+      msg=`InnerHTML set from html string`;
+      return Promise.resolve({loaded: true, error: false, message: msg});
+    }
+
+    // грузим html из oHtml.url
     return fetch(oHtml.url,{credentials:'include'})
       .then((response) => {
         if (response.ok)

@@ -137,7 +137,7 @@ class JqUIDlgCtrl
       mod         - объект компонетов модуля для загрузки:
                     {
                       oCss: {href: ?},
-                      oHtml: {url: ?},
+                      oHtml: {url: ? || html: ?},  - url || html
                       oJs: {src: ?}
                     }
       title       - заголовок диалога
@@ -164,8 +164,9 @@ class JqUIDlgCtrl
     dlg.className='jquidlg dlgtype-custom';
     dlg.title=title;
 
+    mod.oHtml.parentId=dlgId;  // в oHtml должен быть либо url, либо html
+
     // загружаем компоненты диалога: css, html, js
-    mod.oHtml.parentId=dlgId;
     new Promise((resolve,reject) => {
       promiseRez = this.modCtrl.loadMod(modId, mod);
       if (promiseRez.error)
