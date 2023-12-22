@@ -10,10 +10,10 @@
   justify-content: start;
   /* --- */
   font-size: 0;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 7px;
   padding: 3px 7px;
-  box-shadow: 0 3px 4px 0px;
+  box-shadow: 0 3px 4px 0;
 }
 
 /*
@@ -44,7 +44,7 @@
   align-self: stretch;
   font-weight: bold;
   text-align: center;
-  padding: 0px 7px;
+  padding: 0 7px;
 }
 
 .toolbar-label>* {
@@ -58,13 +58,9 @@
 
 /*
   Кнопка
-*/
+  При необходимости перекрыть в css проекта
 .toolbar-btn {
-  /*align-self: stretch;*/
-  /*flex-grow: 0;*/
-  /*flex-basis: 36px;*/
-  /*background: url(../img/tool-btn-bkg-64.jpg);*/
-}
+}*/
 
 .toolbar-btn>img {
   align-self: center;
