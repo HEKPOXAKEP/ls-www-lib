@@ -58,9 +58,10 @@
 
 /*
   Кнопка
-  При необходимости перекрыть в css проекта
+*/
 .toolbar-btn {
-}*/
+  justify-content: center;
+}
 
 .toolbar-btn>img {
   align-self: center;
