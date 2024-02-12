@@ -78,7 +78,7 @@ class JqUIDlgCtrl
   /*
     Создаёт и показывает простой диалог с сообщением.
 
-    dlgType:    error, warn, info
+    dlgType:    error, warn, info, confirm
     msg:        сообщение в формате html
     title:      заголовок
     options:    объект дополнительных параметров диалога
@@ -205,7 +205,7 @@ class JqUIDlgCtrl
     if (!opts.buttons) {
       console.warn('No button defined...');
       opts.buttons=[
-        {text: 'Close', click: () => $(dlg).dialog('close')},
+        {text: 'Close', click: () => $(dlg).dialog('destroy')},
       ];
     }
     // that's it! now show the dialogue
