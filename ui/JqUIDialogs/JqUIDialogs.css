@@ -17,3 +17,9 @@
 .dlgtype-info.ui-dialog-content {
   background-color: aliceblue;
 }
+
+.dlgtype-confirm.ui-dialog-content {
+  border: 1px solid green;
+  background-color: #f3fbdf;
+}
+
