@@ -123,29 +123,29 @@ class ModCtrl
 
     id - Id для css и script;
 
-    options {
+    mod {
       oCss: {href: ?},
       oHtml: {url: ? || html: ?, parentId: ?}, - url || html
       oJs: {src: ?},
     }
   */
-  loadMod(id,options) {
+  loadMod(id,mod) {
     var
       _id=this.#prepId(id);
 
     const
-      prCss=options.oCss ? new Promise((resolve) => {
-          resolve(this.#loadCss(_id+'-css',options.oCss));
+      prCss=mod.oCss ? new Promise((resolve) => {
+          resolve(this.#loadCss(_id+'-css',mod.oCss));
         })
         : Promise.resolve({loaded: true, error: false, message: 'oCss не задан'});
     const
-      prHtml=options.oHtml ? new Promise((resolve) => {
-          resolve(this.#loadHtml(_id,options.oHtml));
+      prHtml=mod.oHtml ? new Promise((resolve) => {
+          resolve(this.#loadHtml(_id,mod.oHtml));
         })
         : Promise.resolve({loaded: true, error: false, message: 'oHtml не задан'});
     const
-      prJs=options.oJs ? new Promise((resolve) => {
-         resolve(this.#loadJs(_id+'-js',options.oJs));
+      prJs=mod.oJs ? new Promise((resolve) => {
+         resolve(this.#loadJs(_id+'-js',mod.oJs));
         })
         : Promise.resolve({loaded: true, error: false, message: 'oJs не задан'});
 
