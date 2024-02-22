@@ -114,14 +114,6 @@ function emitError(errstr,_log=true,_alert=true)
 }
 
 /*
-  Показывает alert() и пишет в лог при ошибке загрузки модуля.
-*/
-function errorLoadMod(mod,xhr)
-{
-  emitError(`Ошибка при загрузке "${mod}".\r\njqXHR.status: ${xhr.status}.\r\njqXHR.statusText: ${xhr.statusText}.`);
-}
-
-/*
   Возвращает дату в виде 'дн, XX месяц YYYY г.
   ds может быть в формате 'yyyymmdd' или 'yyyy-mm-dd'
 */
@@ -252,4 +244,56 @@ function extend(object)
       }
     }
   }
+}
+
+/*
+  Возвращает выделенный фрагмент элемента el в виде объекта.
+
+  @param object ed  элемент <textarea> или <input type='text'>
+  @return object  объект, содержащий информацию о выделенном фрагменте
+*/
+function getSelection(el)
+{
+  var
+    l=el.selectionEnd-el.selectionStart;
+
+  return {start: el.selectionStart, end: el.selectionEnd, len: l, txt: el.value.substr(el.selectionStart,l) };
+}
+
+/*
+  Выделет фрагмент текста заданного элемента.
+
+  @param object el  объект элемента, над которым работаем
+  @param int start_pos  начальная позиция выделения
+  @param int end_pos  конечная позиция выделения
+  @return object  объект, содержащий информацию о выделенном фрагменте
+*/
+function setSelection(el,start_pos,end_pos)
+{
+  el.focus();
+  el.selectionStart=start_pos;
+  el.selectionEnd=end_pos;
+
+  return getSelection(el);
+}
+
+/*
+  Заменяет выделенный текст заданным и выделяет его.
+
+  @param object el  объект, в котором проихводим замену
+  @param string replace_str  строка, на которую меняем
+  @param bool select_replaced  выделить ли замещённый текст
+  @return object  объект, содержащий информацию о выделенном фрагменте
+*/
+function replaceSelection(el,replace_str,select_replaced=false)
+{
+  var
+    sel=getSelection(el),
+    start_pos=sel.start,
+    end_pos=start_pos+replace_str.length;
+
+  el.value=el.value.substr(0,start_pos)+replace_str+el.value.substr(sel.end,el.value.length);
+  if (select_replaced)
+    setSelection(el,start_pos,end_pos);
+  return {start: start_pos, end: end_pos, length: replace_str.length, txt: replace_str};
 }
