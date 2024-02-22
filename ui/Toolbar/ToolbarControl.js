@@ -10,15 +10,17 @@
   var
     toolbarCtrl=new ToolbarCtrl();
 */
-class ToolbarCtrl extends Map {
+class ToolbarCtrl
+{
+  currToolbarId;
+  ownToolbars=new Map();  // will hold Toolbar objects
 
   constructor() {
-    super();
-    this.currToolbarId=undefined;
+    this.currToolbar=undefined;
   }
 
-  get currToolbar() {
-    return this.get(this.currToolbarId);
+  currToolbar() {
+    return this.ownToolbars.get(this.currToolbarId);
   }
 
   registerToolbar() {
@@ -26,17 +28,25 @@ class ToolbarCtrl extends Map {
   }
 
   /*
-    Загрузка и инициализация html и объекта js тулбара.
-    containerId  - контейнер тулбара, в который будут добавляться кнопки
+    Загрузка и инициализация компонетов тулбара css, html, js.
+
+    @param object toolbarMod    объект для загрузки css, html и js:
+      {
+        oCss: {href: ?},
+        oHtml: {url: ? || html: ?}, - url || html
+        oJs: {src: ?},
+      }
+
+    @param string containerId   контейнер тулбара, в который будут добавляться кнопки
   */
-  loadToolbar(id,fHtml,fJs,containerId) {
+  loadToolbar(id,toolbarMod,containerId) {
     if (this.currToolbarId !==undefined) {
-      this.get(this.currToolbarId).unbindEvents();
+      this.ownToolbars.get(this.currToolbarId).unbindEvents();
     }
     $('#'+containerId).empty();
 
     new Promise((resolve,reject) => {
-      var rez=this.loadToolbarModule(id,fHtml,fJs,containerId);
+      var rez=this.loadToolbarModule(id,toolbarMod,containerId);
 
       if (rez.error) {
         reject(rez.message);
@@ -45,10 +55,10 @@ class ToolbarCtrl extends Map {
       }
     })
     .then((response) => {
-      ///_log(response.message);  // dbg
-      if (!this.has(id)) {
+      ///_log(response.message);  //dbg
+      if (!this.ownToolbars.has(id)) {
         this.currToolbarId=id;
-        this.set(id,initToolbar(containerId));   // создаём объект
+        this.ownToolbars.set(id,initToolbar(containerId));   // создаём объект
         ///this.set(id,new window[className](containerId));  // создаём объект
         this.bindEvents(id);                        // привязываем события
       } else {
@@ -64,14 +74,9 @@ class ToolbarCtrl extends Map {
     });
   }
 
-  loadToolbarModule(id,fHtml,fJs,containerId) {
-    return modCtrl.loadMod(
-      id,
-      {
-        oHtml: {url: fHtml, parentId: containerId},
-        oJs: {src: fJs}
-      }
-    );
+  loadToolbarModule(id,toolbarMod,containerId) {
+    toolbarMod.oHtml.parentId=containerId;
+    return modCtrl.loadMod(id,toolbarMod);
   }
 
   /*
@@ -79,26 +84,26 @@ class ToolbarCtrl extends Map {
     У каждого управляющего класса должен быть метод initEvents().
   */
   bindEvents(id) {
-    this.get(id).bindEvents();
+    this.ownToolbars.get(id).bindEvents();
   }
 
   /*
     Уничтожаем объект тулбара по его Id.
   */
-  delete(id) {
-    this.get(id).unbindEvents();  // отвязываем события
-    this.set(id,null);
-    super.delete(id);
+  deleteToolbar(id) {
+    this.ownToolbars.get(id).unbindEvents();  // отвязываем события
+    this.ownToolbars.set(id,null);
+    this.ownToolbars.delete(id);
   }
 
   /*
     Удаление всех объектов ToolbarCtrl.
   */
-  clear() {
-    this.forEach((obj,id) => {
+  clearToolbars() {
+    this.ownToolbars.forEach((obj,id) => {
       obj.unbindEvents();  // отвязываем события
-      this.set(id,null);
+      this.ownToolbars.set(id,null);
     });
-    super.clear();
+    this.ownToolbars.clear();
   }
 }
